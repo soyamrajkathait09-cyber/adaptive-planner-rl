@@ -73,3 +73,13 @@ def step(action: int):
         "done": done,
         "info": {}
     }
+
+
+# 🔥 REQUIRED FOR SCALER VALIDATION
+def main():
+    return app
+
+
+if __name__ == "__main__":
+    main()
+    
