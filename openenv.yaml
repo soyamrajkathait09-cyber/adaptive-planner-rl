@@ -1,6 +1,8 @@
 name: adaptive-planner-rl
 description: Adaptive Planner RL Environment using FastAPI
 
+entrypoint: server.app:main
+
 endpoints:
   reset: /reset
   step: /step
