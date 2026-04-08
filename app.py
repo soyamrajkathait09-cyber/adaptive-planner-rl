@@ -3,7 +3,7 @@ import numpy as np
 
 app = FastAPI()
 
-# ---- YOUR ENV ----
+# ---- ENVIRONMENT ----
 class AdaptivePlannerEnv:
     def __init__(self):
         self.reset()
@@ -29,6 +29,7 @@ class AdaptivePlannerEnv:
     def step(self, action):
         reward = 0
 
+        # ---- ACTION LOGIC ----
         if action == 0 and self.tasks[0]["done"] == 0:
             self.tasks[0]["done"] = 1
             reward += 10
@@ -44,31 +45,40 @@ class AdaptivePlannerEnv:
             self.energy = min(100, self.energy + 15)
             reward += 3
 
+        # ---- TIME + ENERGY ----
         self.time += 1
         self.energy -= 5
 
+        # ---- LOW ENERGY PENALTY ----
         if self.energy < 20:
             reward -= 3
 
+        # ---- DONE CONDITION ----
         done = self.time >= 12
 
         return self._get_state(), reward, done
 
 
+# ---- INIT ENV ----
 env = AdaptivePlannerEnv()
 
-# ---- API ENDPOINTS ----
+
+# ---- API ENDPOINTS (OPENENV FORMAT) ----
 
 @app.post("/reset")
 def reset():
     state = env.reset()
-    return {"state": state}
+    return {
+        "observation": state
+    }
+
 
 @app.post("/step")
 def step(action: int):
     state, reward, done = env.step(action)
     return {
-        "state": state,
+        "observation": state,
         "reward": reward,
-        "done": done
+        "done": done,
+        "info": {}
     }
