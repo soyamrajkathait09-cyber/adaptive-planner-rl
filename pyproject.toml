@@ -1,0 +1,15 @@
+[project]
+name = "adaptive-planner-rl"
+version = "0.1.0"
+description = "Adaptive Planner RL Environment"
+authors = [{ name = "Soyam Raj" }]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "numpy",
+    "openai"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
