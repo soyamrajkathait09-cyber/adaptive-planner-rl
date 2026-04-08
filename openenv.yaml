@@ -1,0 +1,16 @@
+name: adaptive-planner-rl
+description: Adaptive Planner RL Environment using FastAPI
+
+endpoints:
+  reset: /reset
+  step: /step
+
+method: POST
+
+observation_space:
+  type: array
+  description: [time, energy, task1_deadline, task2_deadline, tasks_completed]
+
+action_space:
+  type: discrete
+  n: 4
